@@ -13,7 +13,7 @@ def scrape_linkedin(result_count:int) -> List[Dict]:
         linkedin_fetch_description=True,
         location="United States",
         results_wanted=int(result_count),
-        job_type= "internship"
+        job_type="internship"
         )
 
     except Exception as e:

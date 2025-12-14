@@ -1,7 +1,7 @@
 import logging
 import schedule
 import time
-from data.db import save_job_to_db
+from data.db import save_job_to_db, create_indexes
 
 logging.basicConfig(
     filename="portal_job_scraper.log",
@@ -13,13 +13,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def run_scheduled_job():
-    """Wrapper for the DB job."""
     save_job_to_db()
 
 def main():
     logger.info("Application started")
-
-    # Run daily at local midnight (12:00 AM)
+    create_indexes()
     schedule.every().day.at("00:00").do(run_scheduled_job)
 
     while True:

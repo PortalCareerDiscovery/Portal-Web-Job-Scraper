@@ -14,6 +14,16 @@ DATABASE_NAME = os.getenv("DATABASE_NAME", "")
 
 logger = logging.getLogger(__name__)
 
+def create_indexes():
+    try:
+        db = client[DATABASE_NAME]
+        collection = db.job_embeddings
+        collection.create_index("created_at", expireAfterSeconds=2592000)
+        collection.create_index("job_id", unique=True)
+        logger.info("Indexes created")
+    except Exception as e:
+        logger.error(f"Index creation failed: {str(e)}")
+
 def save_job_to_db():
     try:
         db = client[DATABASE_NAME]
@@ -24,7 +34,6 @@ def save_job_to_db():
             logger.info("No jobs to insert")
             return []
         
-        # Use ordered=False to continue inserting other documents even if one fails (e.g. duplicate)
         result = collection.insert_many(jobs_list, ordered=False)
         logger.info(f"Successfully saved {len(result.inserted_ids)} jobs")
         return result.inserted_ids
