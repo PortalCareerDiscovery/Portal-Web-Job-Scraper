@@ -9,7 +9,7 @@ def scrape_linkedin(result_count:int) -> List[Dict]:
     try:
         jobs = scrape_jobs(
         site_name=["linkedin"],
-        hours_old=24,
+        hours_old=960,
         linkedin_fetch_description=True,
         location="United States",
         results_wanted=int(result_count),

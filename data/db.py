@@ -1,5 +1,6 @@
 import logging
 import os
+import certifi
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from pymongo.errors import BulkWriteError
@@ -9,7 +10,7 @@ from data.normalize import normalize_jobs
 load_dotenv()
 
 uri = os.getenv("MONGODB_URI", "")
-client = MongoClient(uri, server_api=ServerApi('1'))
+client = MongoClient(uri, server_api=ServerApi('1'), tlsCAFile=certifi.where())
 DATABASE_NAME = os.getenv("DATABASE_NAME", "")
 
 logger = logging.getLogger(__name__)

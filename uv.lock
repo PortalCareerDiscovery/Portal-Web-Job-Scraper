@@ -514,6 +514,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "apscheduler" },
+    { name = "certifi" },
     { name = "fastapi" },
     { name = "pymongo" },
     { name = "python-dotenv" },
@@ -525,6 +526,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "apscheduler", specifier = ">=3.11.1" },
+    { name = "certifi", specifier = ">=2025.11.12" },
     { name = "fastapi", specifier = ">=0.124.4" },
     { name = "pymongo", specifier = ">=4.15.5" },
     { name = "python-dotenv", specifier = ">=1.2.1" },

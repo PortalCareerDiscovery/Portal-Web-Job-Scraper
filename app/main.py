@@ -1,6 +1,5 @@
 import logging
-import schedule
-import time
+import sys
 from data.db import save_job_to_db, create_indexes
 
 logging.basicConfig(
@@ -12,17 +11,11 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-def run_scheduled_job():
-    save_job_to_db()
-
 def main():
-    logger.info("Application started")
+    logger.info("Job started via Cloud Run")
     create_indexes()
-    schedule.every().day.at("00:00").do(run_scheduled_job)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    save_job_to_db()
+    logger.info("Job finished. Container exiting.")
     
 if __name__ == "__main__":
     main()

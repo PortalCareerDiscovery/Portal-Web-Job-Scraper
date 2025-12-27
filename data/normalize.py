@@ -44,6 +44,10 @@ def normalize_jobs():
             logger.error(f"Failed to create embedding for job {job_id}: {e}")
             continue
 
+        #convert date_posted to datetime if it's a date object
+        if isinstance(job_date_posted, datetime.date) and not isinstance(job_date_posted, datetime.datetime):
+            job_date_posted = datetime.datetime.combine(job_date_posted, datetime.time.min)
+
         normalized_list.append({
             "job_id": job_id,
             "title": job_title,
